@@ -2,7 +2,7 @@
 Библиотека для простого создания ZeroMQ pub/sub с помощью конфигурации из groovy файла.  
 
 ## Включение
-```$xml
+```xml
 <dependency>
     <groupId>com.oceanos.zmq</groupId>
     <artifactId>connection-provider</artifactId>
@@ -13,7 +13,7 @@
 
 
 ## Пример конфигурации
-```$groovy
+```groovy
 /**
  * можно определять любые переменные и вызывать
  * любой код. Это чистый Groovy!
@@ -57,13 +57,13 @@ pub("/test", auvProxyTcpPub)
 ```
 ## Создание Поставщика
 
-```$groovy
+```groovy
 File file = new File(getClass().getResource("/connection.groovy").getFile());
 ZMQConnectionProvider provider = new ZMQConnectionProvider(file, ConfigType.TEST);
 ```
 ## Создание Publisher
 
-```$groovy
+```groovy
 new Thread(()->{
     try (ZMQPub<TestMsg> pub = zmqConnectionProvider.createZMQPub("topic/test")){
         pub.bind();
@@ -79,7 +79,7 @@ new Thread(()->{
 ```  
 ## Создание Subscriber
 
-```$groovy
+```groovy
 new Thread(()->{
     try (ZMQSub<TestMsg> sub = connectionProvider.createZMQSub("topic/test", TestMsg.class)){
         sub.connect();
