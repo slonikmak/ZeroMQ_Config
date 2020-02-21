@@ -1,0 +1,11 @@
+def ctx = context(scope: scriptScope())
+contributor ctx, {
+    method name: "debug", params: [host: "java.lang.String", port: "java.lang.Integer", protocol:"java.lang.String"], type: "void"
+    method name: "prod", params: [host: "java.lang.String", port: "java.lang.Integer", protocol:"java.lang.String"], type: "void"
+    method name: "test", params: [host: "java.lang.String", port: "java.lang.Integer", protocol:"java.lang.String"], type: "void"
+    method name: "address", params: [closure: "groovy.lang.Closure"], type: "com.oceanos.zmq.connection_provider.ConnectionAddress"
+    property(name: "units", type: "java.lang.Map")
+
+    method(name: "pub", params: [topic: "java.lang.String", connection: "com.oceanos.zmq.connection_provider.ConnectionAddress"], type: "void")
+    method(name: "sub", params: [topic: "java.lang.String", connection: "com.oceanos.zmq.connection_provider.ConnectionAddress"], type: "void")
+}
