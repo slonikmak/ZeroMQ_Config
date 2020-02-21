@@ -57,13 +57,13 @@ pub("/test", auvProxyTcpPub)
 ```
 ## Создание Поставщика
 
-```groovy
+```java
 File file = new File(getClass().getResource("/connection.groovy").getFile());
 ZMQConnectionProvider provider = new ZMQConnectionProvider(file, ConfigType.TEST);
 ```
 ## Создание Publisher
 
-```groovy
+```java
 new Thread(()->{
     try (ZMQPub<TestMsg> pub = zmqConnectionProvider.createZMQPub("topic/test")){
         pub.bind();
@@ -79,7 +79,7 @@ new Thread(()->{
 ```  
 ## Создание Subscriber
 
-```groovy
+```java
 new Thread(()->{
     try (ZMQSub<TestMsg> sub = connectionProvider.createZMQSub("topic/test", TestMsg.class)){
         sub.connect();
