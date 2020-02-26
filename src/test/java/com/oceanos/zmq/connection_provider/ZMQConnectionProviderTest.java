@@ -47,6 +47,7 @@ class ZMQConnectionProviderTest {
             try (ZMQPub<TestMsg> pub = zmqConnectionProvider.createZMQPub(topic)) {
                 pub.bind();
                 while (working && !Thread.currentThread().isInterrupted()) {
+
                     pub.send(testMsg);
                     Thread.sleep(50);
                 }

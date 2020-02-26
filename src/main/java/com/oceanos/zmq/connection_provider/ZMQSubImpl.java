@@ -2,6 +2,8 @@ package com.oceanos.zmq.connection_provider;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.zeromq.SocketType;
 import org.zeromq.ZContext;
 import org.zeromq.ZMQ;
@@ -9,6 +11,7 @@ import org.zeromq.ZMQ;
 import java.io.IOException;
 
 public class ZMQSubImpl<T> extends ZMQConnection implements ZMQSub<T>{
+    static Logger logger = LoggerFactory.getLogger(ZMQSubImpl.class);
 
     final private JavaType type;
 
@@ -25,8 +28,14 @@ public class ZMQSubImpl<T> extends ZMQConnection implements ZMQSub<T>{
 
 
     @Override
-    public T receive() throws IOException {
+    public T receive() {
         String msg = socket.recvStr();
-        return objectMapper.readValue(msg.replace(connectionUnit.getTopic(),""), type);
+        try {
+            return objectMapper.readValue(msg.replace(connectionUnit.getTopic(),""), type);
+        } catch (IOException e) {
+            //e.printStackTrace();
+            logger.error("Massage parsing error!", e);
+        }
+        return null;
     }
 }
