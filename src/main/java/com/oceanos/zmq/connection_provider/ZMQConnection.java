@@ -26,6 +26,7 @@ public abstract class ZMQConnection implements AutoCloseable{
         socket.connect(connectionUnit.getConnectionAddress().getAddress());
     }
 
+    @Override
     public void close(){
         this.socket.close();
     }
